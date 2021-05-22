@@ -1,0 +1,95 @@
+body {
+    background-color: white;
+    width: 1200px;
+    margin: auto;
+    padding: 0;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    font-family: 'Source Code Pro', monospace;
+}
+
+/*
+ * header
+ */
+
+#header {
+    background-color: rgba(255, 255, 255, 0.5);
+    width: 1200px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+}
+
+#header a {
+    text-decoration: none;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+#header h1 {
+    color: black;
+    font-family: 'Rubik', sans-serif;
+    font-weight: 800;
+    font-style: italic;
+}
+
+/*
+ * footer
+ */
+
+#footer {
+    background-color: rgba(255, 255, 255, 0.5);
+    width: 1200px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    bottom: 0;
+}
+
+#footer-left {
+    background-color: transparent;
+    width: 600px;
+    height: 100px;
+    display: flex;
+    justify-content: flex-start;
+}
+
+#footer-left ul {
+    list-style-type: none;
+    margin-top: auto;
+    margin-bottom: auto;
+    padding: 0;
+}
+
+#footer-left ul li:first-child a {
+    padding-right: 30px;
+}
+
+#footer-left li {
+    float: left;
+}
+
+#footer-left li a {
+    color: black;
+    font-weight: 400;
+    text-decoration: none;
+}
+
+#footer-right {
+    background-color: transparent;
+    width: 600px;
+    height: 100px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+#footer-right h4 {
+    margin-top: auto;
+    margin-bottom: auto;
+    padding: 0;
+}
