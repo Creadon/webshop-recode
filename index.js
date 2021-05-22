@@ -17,6 +17,17 @@ app.get('/', (req, res) => {
     res.status(200).set('Content-Type', 'text/html').send(response);
 });
 
+app.get('/item', (req, res) => {
+    const identifier = req.query.identifier;
+    var item = getItem(identifier);
+    if(item == null) {
+        res.status(404).send('Invalid identifier');
+        return;
+    }
+    var response = replaceItemPlaceholders(replacePlaceholders(fs.readFileSync('pages/item.html').toString()), item);
+    res.status(200).send(response);
+});
+
 /*
  * script och style routings
  */
@@ -58,6 +69,11 @@ app.get('/item-components', (req, res) => {
     res.status(200).set('Content-Type', 'text/html').send(response);
 });
 
+app.get('/item-component', (req, res) => {
+    const response = getItemComponent(req.query.identifier);
+    res.status(200).set('Content-Type', 'text/html').send(response);
+});
+
 /*
  * produkt funktioner
  */ 
@@ -73,6 +89,15 @@ function getItems() {
     return items;
 }
 
+function getItem(identifier) {
+    var response;
+    getItems().forEach(item => {
+        if(item['identifier'] === identifier)
+            response = item;
+    });
+    return response;
+}
+
 function isValidItem(directoryFiles) {
     return directoryFiles.includes('image.jpg') && directoryFiles.includes('item.json');
 }
@@ -83,11 +108,18 @@ function isValidItem(directoryFiles) {
 
 function getItemComponents() {
     var html = '';
-    const itemComponent = fs.readFileSync('components/item.html');
+    const itemComponent = fs.readFileSync('components/item-small.html');
     getItems().forEach(item => {
         html += replaceItemPlaceholders(itemComponent.toString(), item);
     });
     return html;
+}
+
+function getItemComponent(identifier) {
+    var item = getItem(identifier);
+    if(item == null)
+        return 'Invalid identifier'
+    return replaceItemPlaceholders(replacePlaceholders(fs.readFileSync('components/item-big.html').toString()), item);
 }
 
 /*
@@ -113,6 +145,14 @@ function replacePlaceholders(input) {
     while(input.includes('%header-title%'))
         input = input.replace('%header-title%', config['header-title']);
 
+    // valuta
+    while(input.includes('%currency-name%'))
+        input = input.replace('%currency-name%', config['currency']['name']);
+    while(input.includes('%currency-prefix%'))
+        input = input.replace('%currency-prefix%', config['currency']['prefix']);
+    while(input.includes('%currency-suffix%'))
+        input = input.replace('%currency-suffix%', config['currency']['suffix']);
+
     return input;
 }
 
@@ -124,12 +164,20 @@ function replaceItemPlaceholders(input, item) {
     while(input.includes('%name%'))
         input = input.replace('%name%', item['name']);
     while(input.includes('%color%'))
-        input = input.replace('%color%', item['color']);
+        input = input.replace('%color%', arrayToString(item['color']));
     while(input.includes('%price%'))
         input = input.replace('%price%', item['price']);
     while(input.includes('%image%'))
         input = input.replace('%image%', item['image']);
     return input;
+}
+
+function arrayToString(array) {
+    var response = '';
+    array.forEach(element => {
+        response += element + ' / ';
+    });
+    return response.substring(0, response.length - 3);
 }
 
 function loadConfig() {
