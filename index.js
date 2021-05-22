@@ -28,6 +28,16 @@ app.get('/item', (req, res) => {
     res.status(200).send(response);
 });
 
+app.get('/contact', (req, res) => {
+    var response = replacePlaceholders(fs.readFileSync('pages/contact.html').toString());
+    res.status(200).set('Content-Type', 'text/html').send(response);
+});
+
+app.get('/about', (req, res) => {
+    var response = replacePlaceholders(fs.readFileSync('pages/about.html').toString());
+    res.status(200).set('Content-Type', 'text/html').send(response);
+});
+
 /*
  * script och style routings
  */

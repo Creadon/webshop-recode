@@ -188,7 +188,6 @@ body {
 }
 
 #item-big-right a {
-    text-decoration: none;
     margin-top: auto;
     margin-bottom: auto;
 }
@@ -216,8 +215,43 @@ body {
     justify-content: center;
 }
 
+#button-container a {
+    text-decoration: none;
+}
+
 #button h4 {
     color: black;
     margin-top: auto;
     margin-bottom: auto;
+}
+
+/*
+ * contact
+ */
+
+#contact {
+    width: 1200px;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+}
+
+#contact #button-container {
+    margin: auto;
+}
+
+/*
+ * about
+ */
+
+#about {
+    width: 1200px;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+}
+
+.mapouter {
+    margin: auto;
+    border: 20px solid rgba(230, 230, 230, 0.5);
 }
