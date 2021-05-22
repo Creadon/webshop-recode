@@ -93,3 +93,35 @@ body {
     margin-bottom: auto;
     padding: 0;
 }
+
+/*
+ * items
+ */
+
+#items {
+    margin-top: 100px;
+}
+
+/*
+ * item
+ */
+
+.item {
+    background-color: transparent;
+    color: white;
+    width: 400px;
+    height: 578px;
+    float: left;
+    display: flex;
+    justify-content: center;
+}
+
+.item img {
+    object-fit: fill;
+}
+
+.item img:hover {
+    filter: blur(8px);
+    -webkit-filter: blur(8px);
+    transition-duration: 0.25s;
+}

@@ -1,5 +1,10 @@
 {
     "company-name": "Sneakershörnan AB",
     "tab-name": "Sneakershörnan",
-    "header-title": "sneakershörnan"
+    "header-title": "sneakershörnan",
+    "currency": {
+        "name": "Euro",
+        "prefix": "",
+        "suffix": "€"
+    }
 }

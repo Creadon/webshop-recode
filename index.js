@@ -13,7 +13,7 @@ var config;
  * sido routings
  */
 app.get('/', (req, res) => {
-    var response = replace(fs.readFileSync('pages/index.html').toString());
+    var response = replacePlaceholders(fs.readFileSync('pages/index.html').toString());
     res.status(200).set('Content-Type', 'text/html').send(response);
 });
 
@@ -31,7 +31,7 @@ app.get('/style', (req, res) => {
 });
 
 /*
- * other routings
+ * andra routings
  */
 
 // returnerar fil utefter förfrågan
@@ -41,18 +41,60 @@ app.get('/get', (req, res) => {
 });
 
 /*
- * startpunkt
+ * produkt routings
  */
-loadConfig();
 
-app.listen(port, () =>
-    console.log('App running (CTRL + C to stop) \n > localhost:' + port));
+app.get('/items', (req, res) => {
+    const response = getItems();
+    res.status(200).set('Content-Type', 'text/json').send(response);
+});
+
+/*
+ * komponent routings
+ */
+
+app.get('/item-components', (req, res) => {
+    const response = getItemComponents();
+    res.status(200).set('Content-Type', 'text/html').send(response);
+});
+
+/*
+ * produkt funktioner
+ */ 
+
+function getItems() {
+    var items = [];
+    fs.readdirSync('items').forEach(itemDirectory => {
+        var directoryFiles = fs.readdirSync('items/' + itemDirectory);
+        if(!isValidItem(directoryFiles))
+            return;
+        items.push(JSON.parse(fs.readFileSync('items/' + itemDirectory + '/item.json')));
+    });
+    return items;
+}
+
+function isValidItem(directoryFiles) {
+    return directoryFiles.includes('image.jpg') && directoryFiles.includes('item.json');
+}
+
+/*
+ * komponent funktioner
+ */
+
+function getItemComponents() {
+    var html = '';
+    const itemComponent = fs.readFileSync('components/item.html');
+    getItems().forEach(item => {
+        html += replaceItemPlaceholders(itemComponent.toString(), item);
+    });
+    return html;
+}
 
 /*
  * andra funktioner
  */
 
-function replace(input) {
+function replacePlaceholders(input) {
     // head
     while(input.includes('%head%'))
         input = input.replace('%head%', fs.readFileSync('assets/head.html').toString());
@@ -74,6 +116,30 @@ function replace(input) {
     return input;
 }
 
+function replaceItemPlaceholders(input, item) {
+    while(input.includes('%identifier%'))
+        input = input.replace('%identifier%', item['identifier']);
+    while(input.includes('%brand%'))
+        input = input.replace('%brand%', item['brand']);
+    while(input.includes('%name%'))
+        input = input.replace('%name%', item['name']);
+    while(input.includes('%color%'))
+        input = input.replace('%color%', item['color']);
+    while(input.includes('%price%'))
+        input = input.replace('%price%', item['price']);
+    while(input.includes('%image%'))
+        input = input.replace('%image%', item['image']);
+    return input;
+}
+
 function loadConfig() {
     config = JSON.parse(fs.readFileSync('config.json'));
 }
+
+/*
+ * startpunkt
+ */
+loadConfig();
+
+app.listen(port, () =>
+    console.log('App running (CTRL + C to stop) \n > localhost:' + port));
