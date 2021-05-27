@@ -34,6 +34,7 @@ body {
     font-family: 'Rubik', sans-serif;
     font-weight: 800;
     font-style: italic;
+    font-size: 2rem;
 }
 
 /*
@@ -47,8 +48,6 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    position: fixed;
-    bottom: 0;
 }
 
 #footer-left {
@@ -157,34 +156,11 @@ body {
 
 #item-big-right {
     width: 600px;
+    margin-left: 30px;
 }
 
 #item-big-right h1 {
     font-family: 'Rubik', sans-serif;
-    margin: 0;
-    margin-top: 50px;
-    margin-left: 75px;
-}
-
-#item-big-right h2 {
-    margin: 0;
-    margin-top: -4px;
-    margin-left: 75px;
-    font-weight: 400;
-}
-
-#item-big-right h2:last-of-type {
-    margin-top: 0px;
-    font-weight: 800;
-    font-size: 20px;
-}
-
-#item-big-right h3 {
-    margin: 0;
-    margin-top: 40px;
-    margin-left: 75px;
-    font-weight: 400;
-    font-size: 24px;
 }
 
 #item-big-right a {
@@ -196,27 +172,24 @@ body {
  * button
  */
 
-#button {
-    display: flex;
-    width: 446px;
-    height: 46px;
-    justify-content: center;
-}
-
 #button-container {
     background-color: transparent;
     border: 2px solid black;
-    width: 446px;
-    height: 46px;
-    margin: 0;
-    margin-top: 10px;
-    margin-left: 75px;
+    width: calc(600px - (30px * 2));
+    height: 50px;
     display: flex;
     justify-content: center;
 }
 
 #button-container a {
     text-decoration: none;
+}
+
+#button {
+    display: flex;
+    width: calc(600px - (30px * 2));
+    height: 50px;
+    justify-content: center;
 }
 
 #button h4 {
@@ -231,7 +204,7 @@ body {
 
 #contact {
     width: 1200px;
-    height: 100vh;
+    height: 100vw;
     display: flex;
     justify-content: center;
 }
@@ -246,7 +219,7 @@ body {
 
 #about {
     width: 1200px;
-    height: 100vh;
+    height: 100vw;
     display: flex;
     justify-content: center;
 }
@@ -254,4 +227,191 @@ body {
 .mapouter {
     margin: auto;
     border: 20px solid rgba(230, 230, 230, 0.5);
+}
+
+/*
+ * media queries
+ */ 
+
+/*
+ * läsplatta
+ * tar bort animationerna
+ */
+@media all and (max-width: 1200px) {
+    body {
+        width: 100vw;
+    }
+
+    #header {
+        width: 100vw;
+    }
+
+    #footer {
+        width: 100vw;
+    }
+
+    #items {
+        width: 100vw;
+    }
+
+    #content {
+        width: 100vw;
+    }
+
+    #about {
+        width: 100vw;
+    }
+
+    #footer-left {
+        width: 50vw;
+    }
+    #footer-right {
+        width: 50vw;
+    }
+
+    .item-small {
+        width: 50vw;
+        height: calc(50vw * 1.445);
+    }
+
+    .item-small img {
+        width: 50vw;
+        height: calc(50vw * 1.445);
+    }
+
+    .item-small img {
+        border: none;
+    }
+    
+    .item-small img:hover {
+        border: none;
+    }
+
+    #item-big {
+        width: 100vw;
+    }
+
+    #item-big-left {
+        width: 50vw;
+        height: calc(50vw * 1.445);
+    }
+
+    #item-big-left img {
+        width: 50vw;
+        height: calc(50vw * 1.445);
+    }
+
+    #item-big-right {
+        width: 50vw;
+        height: calc(50vw * 1.445);
+    }
+
+    #button-container {
+        width: calc(50vw - (30px * 2));
+    }
+    
+    #button {
+        width: calc(50vw - (30px * 2));
+    }
+
+    #item-big-right h2:first-of-type {
+        padding-right: 30px;
+    }
+
+    #footer-left ul {
+        margin-left: 15px;
+    }
+
+    #footer-right h4 {
+        margin-right: 15px;
+    }
+}
+
+/*
+ * mobil
+ */
+@media all and (max-width: 600px) {
+    #header {
+        height: 60px;
+    }
+
+    #footer {
+        height: 60px;
+    }
+    #footer-left {
+        height: 60px;
+    }
+    #footer-right {
+        height: 60px;
+    }
+
+    #items {
+        margin-top: 60px;
+    }
+
+    #content {
+        margin-top: 60px;
+    }
+
+    #about {
+        margin-top: 60px;
+    }
+
+    .item-small {
+        width: 100vw;
+        height: calc(100vw * 1.445);
+        float: left;
+        display: flex;
+    }
+
+    .item-small img {
+        width: 100vw;
+        height: calc(100vw * 1.445);
+    }
+
+    #item-big {
+        width: 100vw;
+        display: inline-block;
+    }
+
+    #item-big-left {
+        width: 100vw;
+        height: calc(100vw * 1.445);
+        float: none;
+    }
+
+    #item-big-left img {
+        width: 100vw;
+        height: calc(100vw * 1.445);
+    }
+
+    #item-big-right {
+        width: 100vw;
+        height: auto;
+    }
+
+    #item-big-right h1 {
+        margin-top: 15px;
+    }
+
+    #item-big-right h2:first-of-type {
+        padding-right: 30px;
+    }
+
+    #button-container {
+        width: calc(100vw - (30px * 2));
+        margin-bottom: 30px;
+    }
+    
+    #button {
+        width: calc(100vw - (30px * 2));
+    }
+
+    #footer-left ul li:first-child a {
+        padding-right: 15px;
+    }
+
+    #footer-left ul {
+        margin-left: 15px;
+    }
 }
